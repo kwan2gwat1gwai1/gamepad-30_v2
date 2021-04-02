@@ -70,30 +70,39 @@ namespace gamePad {
             if (p2 > 683 && p1 > 683 && JOY_STATE != 3) {
                 //NE
                 control.raiseEvent(DAL.MES_DPAD_CONTROLLER_ID, DAL.MES_DPAD_BUTTON_D_DOWN)
+                JOY_STATE = 3
             } else if (p2 > 683 && p1 < 344 && JOY_STATE != 1) {
                 //NW
                 control.raiseEvent(DAL.MES_DPAD_CONTROLLER_ID, DAL.MES_DPAD_BUTTON_A_DOWN)
+                JOY_STATE = 1
             } else if (p2 > 683 && JOY_STATE != 2) {
                 //N
                 control.raiseEvent(DAL.MES_DPAD_CONTROLLER_ID, DAL.MES_DPAD_BUTTON_1_DOWN)
+                JOY_STATE = 2
             } else if (p2 < 344 && p1 > 683 && JOY_STATE != 9) {
                 //SE
                 control.raiseEvent(DAL.MES_DPAD_CONTROLLER_ID, DAL.MES_DPAD_BUTTON_C_DOWN)
+                JOY_STATE = 9
             } else if (p2 < 344 && p1 < 344 && JOY_STATE != 7) {
                 //SW
                 control.raiseEvent(DAL.MES_DPAD_CONTROLLER_ID, DAL.MES_DPAD_BUTTON_B_DOWN)
+                JOY_STATE = 7
             } else if (p2 < 344 && JOY_STATE != 8) {
                 //S
                 control.raiseEvent(DAL.MES_DPAD_CONTROLLER_ID, DAL.MES_DPAD_BUTTON_3_DOWN)
+                JOY_STATE = 8
             } else if (p1 > 683 && JOY_STATE != 6) {
                 //E
                 control.raiseEvent(DAL.MES_DPAD_CONTROLLER_ID, DAL.MES_DPAD_BUTTON_4_DOWN)
+                JOY_STATE = 6
             } else if (p1 < 344 && JOY_STATE != 4) {
                 //W
                 control.raiseEvent(DAL.MES_DPAD_CONTROLLER_ID, DAL.MES_DPAD_BUTTON_2_DOWN)
+                JOY_STATE = 4
             } else if (JOY_STATE != 5) {
                 //C
                 control.raiseEvent(DAL.MES_DPAD_CONTROLLER_ID, DAL.MES_DPAD_BUTTON_C_UP)
+                JOY_STATE = 5
             }            
         }                
     })
