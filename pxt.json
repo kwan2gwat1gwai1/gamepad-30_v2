@@ -7,8 +7,8 @@
         "microphone": "*"
     },
     "files": [
-        "main.blocks",
         "main.ts",
+        "gamerpad.cpp",
         "README.md"
     ],
     "testFiles": [
