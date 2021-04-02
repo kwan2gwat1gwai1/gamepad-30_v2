@@ -31,28 +31,28 @@ enum GamerBitEvent {
  */
 //%
 enum JoystickEvent {
-    //% block="centre"
-    Centre = DAL.MES_DPAD_BUTTON_C_UP,
+    
 
-    //% block="north"
-    North = DAL.MES_DPAD_BUTTON_1_DOWN,
     //% block="north-west"
     North_West = DAL.MES_DPAD_BUTTON_A_DOWN,
+    //% block="north"
+    North = DAL.MES_DPAD_BUTTON_1_DOWN,
+    //% block="north-east"
+    North_East = DAL.MES_DPAD_BUTTON_D_DOWN,
 
     //% block="west"
     West = DAL.MES_DPAD_BUTTON_2_DOWN,
+    //% block="centre"
+    Centre = DAL.MES_DPAD_BUTTON_C_UP,
+    //% block="east"
+    East = DAL.MES_DPAD_BUTTON_4_DOWN,
+
     //% block="south-west"
     South_West = DAL.MES_DPAD_BUTTON_B_DOWN,
-
     //% block="south"
     South = DAL.MES_DPAD_BUTTON_3_DOWN,
     //% block="south-east"
     South_East = DAL.MES_DPAD_BUTTON_C_DOWN,
-
-    //% block="east"
-    East = DAL.MES_DPAD_BUTTON_4_DOWN,
-    //% block="north-east"
-    North_East = DAL.MES_DPAD_BUTTON_D_DOWN,
 }
 
 /**
