@@ -66,40 +66,34 @@ namespace gamePad {
             let p1 = pins.analogReadPin(AnalogPin.P1)
             let p2 = pins.analogReadPin(AnalogPin.P2)
             
-            if (p2 > 683) {
-                if (p1 > 683) {
-                    //NE
-                    control.raiseEvent(DAL.MES_DPAD_CONTROLLER_ID, DAL.MES_DPAD_BUTTON_D_DOWN)
-                } else if (p1 < 344) {
-                    //NW
-                    control.raiseEvent(DAL.MES_DPAD_CONTROLLER_ID, DAL.MES_DPAD_BUTTON_A_DOWN)
-                } else {
-                    //N
-                    control.raiseEvent(DAL.MES_DPAD_CONTROLLER_ID, DAL.MES_DPAD_BUTTON_1_DOWN)
-                }
+            if (p2 > 683 && p1 > 683) {
+                //NE
+                control.raiseEvent(DAL.MES_DPAD_CONTROLLER_ID, DAL.MES_DPAD_BUTTON_D_DOWN)
+            } else if (p2 > 683 && p1 < 344) {
+                //NW
+                control.raiseEvent(DAL.MES_DPAD_CONTROLLER_ID, DAL.MES_DPAD_BUTTON_A_DOWN)
+            } else if (p2 > 683) {
+                //N
+                control.raiseEvent(DAL.MES_DPAD_CONTROLLER_ID, DAL.MES_DPAD_BUTTON_1_DOWN)
+            } else if (p2 < 344 && p1 > 683) {
+                //SE
+                control.raiseEvent(DAL.MES_DPAD_CONTROLLER_ID, DAL.MES_DPAD_BUTTON_C_DOWN)
+            } else if (p2 < 344 && p1 < 344) {
+                //SW
+                control.raiseEvent(DAL.MES_DPAD_CONTROLLER_ID, DAL.MES_DPAD_BUTTON_B_DOWN)
             } else if (p2 < 344) {
-                if (p1 > 683) {
-                    //SE
-                    control.raiseEvent(DAL.MES_DPAD_CONTROLLER_ID, DAL.MES_DPAD_BUTTON_C_DOWN)
-                } else if (p1 < 344) {
-                    //SW
-                    control.raiseEvent(DAL.MES_DPAD_CONTROLLER_ID, DAL.MES_DPAD_BUTTON_B_DOWN)
-                } else {
-                    //S
-                    control.raiseEvent(DAL.MES_DPAD_CONTROLLER_ID, DAL.MES_DPAD_BUTTON_3_DOWN)
-                }
+                //S
+                control.raiseEvent(DAL.MES_DPAD_CONTROLLER_ID, DAL.MES_DPAD_BUTTON_3_DOWN)
+            } else if (p1 > 683) {
+                //E
+                control.raiseEvent(DAL.MES_DPAD_CONTROLLER_ID, DAL.MES_DPAD_BUTTON_4_DOWN)
+            } else if (p1 < 344) {
+                //W
+                control.raiseEvent(DAL.MES_DPAD_CONTROLLER_ID, DAL.MES_DPAD_BUTTON_2_DOWN)
             } else {
-                if (p1 > 683) {
-                    //E
-                    control.raiseEvent(DAL.MES_DPAD_CONTROLLER_ID, DAL.MES_DPAD_BUTTON_4_DOWN)
-                } else if (p1 < 344) {
-                    //W
-                    control.raiseEvent(DAL.MES_DPAD_CONTROLLER_ID, DAL.MES_DPAD_BUTTON_2_DOWN)
-                } else {
-                    //C
-                    control.raiseEvent(DAL.MES_DPAD_CONTROLLER_ID, DAL.MES_DPAD_BUTTON_C_UP)
-                }
-            }
+                //C
+                control.raiseEvent(DAL.MES_DPAD_CONTROLLER_ID, DAL.MES_DPAD_BUTTON_C_UP)
+            }            
         }                
     })
 
