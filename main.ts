@@ -149,23 +149,6 @@ namespace gamePad {
     }
 
     /**
-     * To scan a button whether be triggered : return '1' if pressed; return'0' if not.
-     */
-    //% weight=70
-    //% blockId=gamePad_joystickState block="button|%button|is pressed"
-    //% button.fieldEditor="gridpicker" button.fieldOptions.columns=4
-    export function joystickState(button: GamerBitPin): boolean {
-        if (!PIN_INIT) { 
-            PinInit();
-        }
-        let num = false;
-        if (0 == pins.digitalReadPin(<number>button)) {
-            num = true;
-        }
-        return num;
-    }
-
-    /**
      * Registers code to run when a DFRobot gamer:bit event is detected.
      */
     //% weight=60
