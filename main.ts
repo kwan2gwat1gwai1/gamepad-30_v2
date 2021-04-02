@@ -31,8 +31,6 @@ enum GamerBitEvent {
  */
 //%
 enum JoystickEvent {
-    
-
     //% block="north-west"
     North_West = DAL.MES_DPAD_BUTTON_A_DOWN,
     //% block="north"
