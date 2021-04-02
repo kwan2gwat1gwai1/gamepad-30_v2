@@ -27,11 +27,41 @@ enum GamerBitEvent {
 }
 
 /**
+ * Trigger Events Proposed by DFRobot joystick Players.
+ */
+//%
+enum JoystickEvent {
+    //% block="centre"
+    Centre = DAL.MES_DPAD_BUTTON_C_UP,
+
+    //% block="north"
+    North = DAL.MES_DPAD_BUTTON_1_DOWN,
+    //% block="north-west"
+    North_West = DAL.MES_DPAD_BUTTON_A_DOWN,
+
+    //% block="west"
+    West = DAL.MES_DPAD_BUTTON_2_DOWN,
+    //% block="south-west"
+    South_West = DAL.MES_DPAD_BUTTON_B_DOWN,
+
+    //% block="south"
+    South = DAL.MES_DPAD_BUTTON_3_DOWN,
+    //% block="south-east"
+    South_East = DAL.MES_DPAD_BUTTON_C_DOWN,
+
+    //% block="east"
+    East = DAL.MES_DPAD_BUTTON_4_DOWN,
+    //% block="north-east"
+    North_East = DAL.MES_DPAD_BUTTON_D_DOWN,
+}
+
+/**
  * Functions for DFRobot gamer:bit Players.
  */
 //% weight=10 color=#DF6721 icon="\uf11b" block="gamePad"
 namespace gamePad {
     let PIN_INIT = 0;
+    let JOY_INIT = 0
     
     export enum Vibrator { 
         //% blockId="V0" block="Off"
@@ -51,6 +81,12 @@ namespace gamePad {
         pins.setPull(DigitalPin.P15, PinPullMode.PullNone);        
         pins.setPull(DigitalPin.P16, PinPullMode.PullNone);
         PIN_INIT = 1;
+        return;
+    }
+
+    function JoyInit(): void {        
+        
+        JOY_INIT = 1;
         return;
     }
 
@@ -87,6 +123,21 @@ namespace gamePad {
         control.onEvent(<number>button, <number>event, handler); // register handler
     }
     
+    /**
+     * Registers code to run when a DFRobot joystick event is detected.
+     */
+    //% weight=60
+    //% blockGap=50
+    //% blockId=gamePad_onJoystickEvent block="on joystick is|%event|"
+    //% event.fieldEditor="gridpicker" event.fieldOptions.columns=3
+    export function onJoystickEvent(event: JoystickEvent, handler: Action) {
+        init();
+        if (!JOY_INIT) { 
+            JoyInit();
+        }
+        control.onEvent(DAL.MES_DPAD_CONTROLLER_ID, <number>event, handler); // register handler
+    }
+
     /**
      * Vibrating motor switch.
      */
