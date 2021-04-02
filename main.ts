@@ -61,8 +61,48 @@ enum JoystickEvent {
 //% weight=10 color=#DF6721 icon="\uf11b" block="gamePad"
 namespace gamePad {
     let PIN_INIT = 0;
-    let JOY_INIT = 0
+    let JOY_INIT = 0;
     
+    forever(function () {
+        let p1 = pins.analogReadPin(AnalogPin.P1)
+        let p2 = pins.analogReadPin(AnalogPin.P2)
+        
+        if (p2 > 683) {
+            if (p1 > 683) {
+                //NE
+                control.raiseEvent(DAL.MES_DPAD_CONTROLLER_ID, DAL.MES_DPAD_BUTTON_D_DOWN)
+            } else if (p1 < 344) {
+                //NW
+                control.raiseEvent(DAL.MES_DPAD_CONTROLLER_ID, DAL.MES_DPAD_BUTTON_A_DOWN)
+            } else {
+                //N
+                control.raiseEvent(DAL.MES_DPAD_CONTROLLER_ID, DAL.MES_DPAD_BUTTON_1_DOWN)
+            }
+        } else if (p2 < 344) {
+            if (p1 > 683) {
+                //SE
+                control.raiseEvent(DAL.MES_DPAD_CONTROLLER_ID, DAL.MES_DPAD_BUTTON_C_DOWN)
+            } else if (p1 < 344) {
+                //SW
+                control.raiseEvent(DAL.MES_DPAD_CONTROLLER_ID, DAL.MES_DPAD_BUTTON_B_DOWN)
+            } else {
+                //S
+                control.raiseEvent(DAL.MES_DPAD_CONTROLLER_ID, DAL.MES_DPAD_BUTTON_3_DOWN)
+            }
+        } else {
+            if (p1 > 683) {
+                //E
+                control.raiseEvent(DAL.MES_DPAD_CONTROLLER_ID, DAL.MES_DPAD_BUTTON_4_DOWN)
+            } else if (p1 < 344) {
+                //W
+                control.raiseEvent(DAL.MES_DPAD_CONTROLLER_ID, DAL.MES_DPAD_BUTTON_2_DOWN)
+            } else {
+                //C
+                control.raiseEvent(DAL.MES_DPAD_CONTROLLER_ID, DAL.MES_DPAD_BUTTON_C_UP)
+            }
+        }        
+    })
+
     export enum Vibrator { 
         //% blockId="V0" block="Off"
         V0 = 0,
@@ -84,8 +124,7 @@ namespace gamePad {
         return;
     }
 
-    function JoyInit(): void {        
-        
+    function JoyInit(): void {
         JOY_INIT = 1;
         return;
     }
@@ -97,6 +136,23 @@ namespace gamePad {
     //% blockId=gamePad_keyState block="button|%button|is pressed"
     //% button.fieldEditor="gridpicker" button.fieldOptions.columns=4
     export function keyState(button: GamerBitPin): boolean {
+        if (!PIN_INIT) { 
+            PinInit();
+        }
+        let num = false;
+        if (0 == pins.digitalReadPin(<number>button)) {
+            num = true;
+        }
+        return num;
+    }
+
+    /**
+     * To scan a button whether be triggered : return '1' if pressed; return'0' if not.
+     */
+    //% weight=70
+    //% blockId=gamePad_joystickState block="button|%button|is pressed"
+    //% button.fieldEditor="gridpicker" button.fieldOptions.columns=4
+    export function joystickState(button: GamerBitPin): boolean {
         if (!PIN_INIT) { 
             PinInit();
         }
@@ -135,7 +191,7 @@ namespace gamePad {
         if (!JOY_INIT) { 
             JoyInit();
         }
-        control.onEvent(DAL.MES_DPAD_CONTROLLER_ID, <number>event, handler); // register handler
+        control.onEvent(EventBusSource.MES_DPAD_CONTROLLER_ID, <number>event, handler); // register handler
     }
 
     /**
