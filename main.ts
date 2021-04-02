@@ -86,7 +86,7 @@ namespace gamePad {
                     )
                     JOY_STATE = 2
                     basic.pause(500)
-                } else if (JOY_STATE != 1) {
+                } else if (p1 < 344 && JOY_STATE != 1) {
                     control.raiseEvent(
                     EventBusSource.MES_DPAD_CONTROLLER_ID,
                     EventBusValue.MES_DPAD_BUTTON_A_DOWN
@@ -109,7 +109,7 @@ namespace gamePad {
                     )
                     JOY_STATE = 5
                     basic.pause(500)
-                } else if (JOY_STATE != 4) {
+                } else if (p1 < 344 && JOY_STATE != 4) {
                     control.raiseEvent(
                     EventBusSource.MES_DPAD_CONTROLLER_ID,
                     EventBusValue.MES_DPAD_BUTTON_2_DOWN
@@ -132,7 +132,7 @@ namespace gamePad {
                     )
                     JOY_STATE = 8
                     basic.pause(500)
-                } else if (JOY_STATE != 7) {
+                } else if (p1 < 344 && JOY_STATE != 7) {
                     control.raiseEvent(
                     EventBusSource.MES_DPAD_CONTROLLER_ID,
                     EventBusValue.MES_DPAD_BUTTON_B_DOWN
