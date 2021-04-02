@@ -59,61 +59,88 @@ enum JoystickEvent {
 //% weight=10 color=#DF6721 icon="\uf11b" block="gamePad"
 namespace gamePad {
     let PIN_INIT = 0;
-    let JOY_INIT = 0;
-    let JOY_STATE = 5
     
-    forever(function () {
+    let p1 = 0
+    let p2 = 0
+    
+    let JOY_STATE = 5
+    let JOY_INIT = 0
+    
+    basic.forever(function () {
         if (JOY_INIT == 1) {
-            let p1 = pins.analogReadPin(AnalogPin.P1)
-            let p2 = pins.analogReadPin(AnalogPin.P2)
-            
-            if (p2 > 683 && p1 > 683 && JOY_STATE != 3) {
-                //NE
-                control.raiseEvent(DAL.MES_DPAD_CONTROLLER_ID, DAL.MES_DPAD_BUTTON_D_DOWN)
-                JOY_STATE = 3
-                basic.pause(200)
-            } else if (p2 > 683 && p1 < 344 && JOY_STATE != 1) {
-                //NW
-                control.raiseEvent(DAL.MES_DPAD_CONTROLLER_ID, DAL.MES_DPAD_BUTTON_A_DOWN)
-                JOY_STATE = 1
-                basic.pause(200)
-            } else if (p2 > 683 && JOY_STATE != 2) {
-                //N
-                control.raiseEvent(DAL.MES_DPAD_CONTROLLER_ID, DAL.MES_DPAD_BUTTON_1_DOWN)
-                JOY_STATE = 2
-                basic.pause(200)
-            } else if (p2 < 344 && p1 > 683 && JOY_STATE != 9) {
-                //SE
-                control.raiseEvent(DAL.MES_DPAD_CONTROLLER_ID, DAL.MES_DPAD_BUTTON_C_DOWN)
-                JOY_STATE = 9
-                basic.pause(200)
-            } else if (p2 < 344 && p1 < 344 && JOY_STATE != 7) {
-                //SW
-                control.raiseEvent(DAL.MES_DPAD_CONTROLLER_ID, DAL.MES_DPAD_BUTTON_B_DOWN)
-                JOY_STATE = 7
-                basic.pause(200)
-            } else if (p2 < 344 && JOY_STATE != 8) {
-                //S
-                control.raiseEvent(DAL.MES_DPAD_CONTROLLER_ID, DAL.MES_DPAD_BUTTON_3_DOWN)
-                JOY_STATE = 8
-                basic.pause(200)
-            } else if (p1 > 683 && JOY_STATE != 6) {
-                //E
-                control.raiseEvent(DAL.MES_DPAD_CONTROLLER_ID, DAL.MES_DPAD_BUTTON_4_DOWN)
-                JOY_STATE = 6
-                basic.pause(200)
-            } else if (p1 < 344 && JOY_STATE != 4) {
-                //W
-                control.raiseEvent(DAL.MES_DPAD_CONTROLLER_ID, DAL.MES_DPAD_BUTTON_2_DOWN)
-                JOY_STATE = 4
-                basic.pause(200)
-            } else if (JOY_STATE != 5) {
-                //C
-                control.raiseEvent(DAL.MES_DPAD_CONTROLLER_ID, DAL.MES_DPAD_BUTTON_C_UP)
-                JOY_STATE = 5
-                basic.pause(200)
-            }            
-        }                
+            p1 = pins.analogReadPin(AnalogPin.P1)
+            p2 = pins.analogReadPin(AnalogPin.P2)
+            if (pins.analogReadPin(AnalogPin.P2) > 683) {
+                if (pins.analogReadPin(AnalogPin.P1) > 683 && JOY_STATE != 3) {
+                    control.raiseEvent(
+                    EventBusSource.MES_DPAD_CONTROLLER_ID,
+                    EventBusValue.MES_DPAD_BUTTON_D_DOWN
+                    )
+                    JOY_STATE = 3
+                    basic.pause(200)
+                } else if (pins.analogReadPin(AnalogPin.P1) > 344 && JOY_STATE != 2) {
+                    control.raiseEvent(
+                    EventBusSource.MES_DPAD_CONTROLLER_ID,
+                    EventBusValue.MES_DPAD_BUTTON_1_DOWN
+                    )
+                    JOY_STATE = 2
+                    basic.pause(200)
+                } else if (JOY_STATE != 1) {
+                    control.raiseEvent(
+                    EventBusSource.MES_DPAD_CONTROLLER_ID,
+                    EventBusValue.MES_DPAD_BUTTON_A_DOWN
+                    )
+                    JOY_STATE = 1
+                    basic.pause(200)
+                }
+            } else if (pins.analogReadPin(AnalogPin.P2) > 344) {
+                if (pins.analogReadPin(AnalogPin.P1) > 683 && JOY_STATE != 6) {
+                    control.raiseEvent(
+                    EventBusSource.MES_DPAD_CONTROLLER_ID,
+                    EventBusValue.MES_DPAD_BUTTON_4_DOWN
+                    )
+                    JOY_STATE = 6
+                    basic.pause(200)
+                } else if (pins.analogReadPin(AnalogPin.P1) > 344 && JOY_STATE != 5) {
+                    control.raiseEvent(
+                    EventBusSource.MES_DPAD_CONTROLLER_ID,
+                    EventBusValue.MES_DPAD_BUTTON_C_UP
+                    )
+                    JOY_STATE = 5
+                    basic.pause(200)
+                } else if (JOY_STATE != 4) {
+                    control.raiseEvent(
+                    EventBusSource.MES_DPAD_CONTROLLER_ID,
+                    EventBusValue.MES_DPAD_BUTTON_2_DOWN
+                    )
+                    JOY_STATE = 4
+                    basic.pause(200)
+                }
+            } else {
+                if (pins.analogReadPin(AnalogPin.P1) > 683 && JOY_STATE != 9) {
+                    control.raiseEvent(
+                    EventBusSource.MES_DPAD_CONTROLLER_ID,
+                    EventBusValue.MES_DPAD_BUTTON_C_DOWN
+                    )
+                    JOY_STATE = 9
+                    basic.pause(200)
+                } else if (pins.analogReadPin(AnalogPin.P1) > 344 && JOY_STATE != 8) {
+                    control.raiseEvent(
+                    EventBusSource.MES_DPAD_CONTROLLER_ID,
+                    EventBusValue.MES_DPAD_BUTTON_3_DOWN
+                    )
+                    JOY_STATE = 8
+                    basic.pause(200)
+                } else if (JOY_STATE != 7) {
+                    control.raiseEvent(
+                    EventBusSource.MES_DPAD_CONTROLLER_ID,
+                    EventBusValue.MES_DPAD_BUTTON_B_DOWN
+                    )
+                    JOY_STATE = 7
+                    basic.pause(200)
+                }
+            }
+        }
     })
 
     export enum Vibrator { 
