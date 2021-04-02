@@ -60,37 +60,38 @@ enum JoystickEvent {
 namespace gamePad {
     let PIN_INIT = 0;
     let JOY_INIT = 0;
+    let JOY_STATE = 5
     
     forever(function () {
         if (JOY_INIT == 1) {
             let p1 = pins.analogReadPin(AnalogPin.P1)
             let p2 = pins.analogReadPin(AnalogPin.P2)
             
-            if (p2 > 683 && p1 > 683) {
+            if (p2 > 683 && p1 > 683 && JOY_STATE != 3) {
                 //NE
                 control.raiseEvent(DAL.MES_DPAD_CONTROLLER_ID, DAL.MES_DPAD_BUTTON_D_DOWN)
-            } else if (p2 > 683 && p1 < 344) {
+            } else if (p2 > 683 && p1 < 344 && JOY_STATE != 1) {
                 //NW
                 control.raiseEvent(DAL.MES_DPAD_CONTROLLER_ID, DAL.MES_DPAD_BUTTON_A_DOWN)
-            } else if (p2 > 683) {
+            } else if (p2 > 683 && JOY_STATE != 2) {
                 //N
                 control.raiseEvent(DAL.MES_DPAD_CONTROLLER_ID, DAL.MES_DPAD_BUTTON_1_DOWN)
-            } else if (p2 < 344 && p1 > 683) {
+            } else if (p2 < 344 && p1 > 683 && JOY_STATE != 9) {
                 //SE
                 control.raiseEvent(DAL.MES_DPAD_CONTROLLER_ID, DAL.MES_DPAD_BUTTON_C_DOWN)
-            } else if (p2 < 344 && p1 < 344) {
+            } else if (p2 < 344 && p1 < 344 && JOY_STATE != 7) {
                 //SW
                 control.raiseEvent(DAL.MES_DPAD_CONTROLLER_ID, DAL.MES_DPAD_BUTTON_B_DOWN)
-            } else if (p2 < 344) {
+            } else if (p2 < 344 && JOY_STATE != 8) {
                 //S
                 control.raiseEvent(DAL.MES_DPAD_CONTROLLER_ID, DAL.MES_DPAD_BUTTON_3_DOWN)
-            } else if (p1 > 683) {
+            } else if (p1 > 683 && JOY_STATE != 6) {
                 //E
                 control.raiseEvent(DAL.MES_DPAD_CONTROLLER_ID, DAL.MES_DPAD_BUTTON_4_DOWN)
-            } else if (p1 < 344) {
+            } else if (p1 < 344 && JOY_STATE != 4) {
                 //W
                 control.raiseEvent(DAL.MES_DPAD_CONTROLLER_ID, DAL.MES_DPAD_BUTTON_2_DOWN)
-            } else {
+            } else if (JOY_STATE != 5) {
                 //C
                 control.raiseEvent(DAL.MES_DPAD_CONTROLLER_ID, DAL.MES_DPAD_BUTTON_C_UP)
             }            
