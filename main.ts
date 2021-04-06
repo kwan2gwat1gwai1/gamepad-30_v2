@@ -59,7 +59,7 @@ enum JoystickEvent {
 /**
  * Functions for DFRobot gamer:bit Players.
  */
-//% weight=10 color=#DF6721 icon="\uf11b" block="gamePad"
+//% weight=10 color=#00B0F0 icon="\uf11b" block="gamePad"
 namespace gamePad {
     let PIN_INIT = 0;
     
