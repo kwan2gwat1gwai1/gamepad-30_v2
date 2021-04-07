@@ -69,7 +69,7 @@ namespace gamePad {
     let JOY_STATE = 0
     let JOY_INIT = 0
 
-    let wait_time = 500000
+    let wait_time = 50000
     
     basic.forever(function () {
         if (JOY_INIT == 1) {
